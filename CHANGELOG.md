@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.0.2 (2026-04-03)
+
+### Bug Fixes
+
+- Separate CI from release workflow and use twine for PyPI upload
+  ([`3f8783d`](https://github.com/ogreyesp/dvc-databricks/commit/3f8783dc260a6f5d965bdde48d8ede4bd83718d3))
+
+
 ## v1.0.1 (2026-04-03)
 
 ### Bug Fixes
