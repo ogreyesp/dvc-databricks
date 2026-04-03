@@ -5,22 +5,20 @@ on:
     branches:
       - main
 
-# Needed for python-semantic-release to push tags and commits back to the repo
 permissions:
   contents: write
-  id-token: write  # needed for PyPI trusted publishing (optional but recommended)
 
 jobs:
   release:
-    name: Semantic Release
+    name: Semantic Release & PyPI Publish
     runs-on: ubuntu-latest
-    concurrency: release  # prevent parallel release runs
+    concurrency: release
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # full history needed for semantic-release to compute version
+          fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Python
@@ -28,15 +26,24 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install python-semantic-release
-        run: pip install python-semantic-release
+      - name: Install tools
+        run: pip install python-semantic-release hatchling twine
 
-      - name: Run semantic release
+      - name: Run semantic release (version bump + GitHub release)
+        id: semrel
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           semantic-release version
-          semantic-release publish
+          echo "released=$(semantic-release version --print 2>/dev/null && echo true || echo false)" >> $GITHUB_OUTPUT
+
+      - name: Build package
+        run: python -m hatchling build
+
+      - name: Publish to PyPI
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
+        run: twine upload dist/*
