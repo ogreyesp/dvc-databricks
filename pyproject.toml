@@ -39,10 +39,12 @@ build-backend = "hatchling.build"
 [tool.hatch.build.targets.wheel]
 packages = ["src/dvc_databricks"]
 
-[tool.hatch.build.hooks.custom]
-# hatch_build.py installs dvc_databricks_startup.pth into site-packages.
-# Python executes .pth files at startup, which imports dvc_databricks and
-# registers dbvol:// into dvc_objects.known_implementations automatically.
+# force-include places dvc_databricks_startup.pth at the root of the wheel.
+# pip installs wheel-root files directly into site-packages, so Python will
+# execute "import dvc_databricks" at interpreter startup in every process —
+# including DVC CLI subprocesses — registering the dbvol:// protocol.
+[tool.hatch.build.targets.wheel.force-include]
+"src/dvc_databricks_startup.pth" = "dvc_databricks_startup.pth"
 
 [tool.semantic_release]
 version_toml = ["pyproject.toml:project.version"]
