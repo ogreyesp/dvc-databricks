@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.0.3 (2026-04-03)
+
+### Bug Fixes
+
+- Remove broken output command from release workflow
+  ([`d91f6a1`](https://github.com/ogreyesp/dvc-databricks/commit/d91f6a1b07747430091c69689104cc27c9ddea56))
+
+
 ## v1.0.2 (2026-04-03)
 
 ### Bug Fixes
