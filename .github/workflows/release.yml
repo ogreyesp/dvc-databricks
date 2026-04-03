@@ -30,14 +30,12 @@ jobs:
         run: pip install python-semantic-release hatchling twine
 
       - name: Run semantic release (version bump + GitHub release)
-        id: semrel
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           semantic-release version
-          echo "released=$(semantic-release version --print 2>/dev/null && echo true || echo false)" >> $GITHUB_OUTPUT
 
       - name: Build package
         run: python -m hatchling build
