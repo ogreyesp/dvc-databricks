@@ -280,8 +280,13 @@ class _DatabricksVolumesFS(AbstractFileSystem):
         path = self._strip_protocol(path)
 
         if "r" in mode:
-            response = self._client.files.download(path)
-            return io.BytesIO(response.contents.read())
+            try:
+                response = self._client.files.download(path)
+                return io.BytesIO(response.contents.read())
+            except Exception as e:
+                if "not found" in str(e).lower() or "404" in str(e):
+                    raise FileNotFoundError(f"No such file: {path!r}") from e
+                raise
 
         if "w" in mode:
             return _WriteBuffer(self._client, path)
