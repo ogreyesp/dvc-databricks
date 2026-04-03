@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.0.4 (2026-04-03)
+
+### Bug Fixes
+
+- Convert Databricks NotFound error to FileNotFoundError in _open
+  ([`64586c8`](https://github.com/ogreyesp/dvc-databricks/commit/64586c87566edc8861ec4a4fefd924e6b62079d4))
+
+
 ## v1.0.3 (2026-04-03)
 
 ### Bug Fixes
