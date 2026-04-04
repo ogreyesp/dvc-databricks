@@ -131,12 +131,23 @@ def cmd_add(args: argparse.Namespace) -> None:
         print(f"Excluding extensions : {sorted(exclude)}")
     print(f"Files to track       : {total}\n")
 
+    skipped = []
+    tracked = 0
+
     with Repo() as repo:
         for i, f in enumerate(files, 1):
-            repo.add([str(f)])
-            print(f"[{i}/{total}] {f.relative_to(root)}")
+            try:
+                repo.add([str(f)])
+                tracked += 1
+                print(f"[{i}/{total}] {f.relative_to(root)}")
+            except Exception as e:
+                skipped.append(f.relative_to(root))
+                print(f"[{i}/{total}] SKIPPED {f.relative_to(root)}: {e}")
 
-    print(f"\nDone. {total} .dvc pointer files created.")
+    print(f"\nDone. {tracked} .dvc pointer files created.")
+    if skipped:
+        print(f"Skipped {len(skipped)} file(s) — their .dvc paths are git-ignored or another error occurred.")
+        print("Check your .gitignore to ensure .dvc files in the target directory are not ignored.")
     print("\nNext steps:")
     print("  git add .")
     print("  git commit -m 'track dataset file by file'")
