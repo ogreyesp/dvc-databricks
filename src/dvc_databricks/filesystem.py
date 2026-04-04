@@ -252,6 +252,7 @@ class _DatabricksVolumesFS(AbstractFileSystem):
 
                 for entry in self.ls(p, detail=True):
                     self.rm(entry["name"], recursive=True)
+                self._client.files.delete_directory(p)
             else:
                 self._client.files.delete(p)
 

@@ -252,6 +252,27 @@ class TestInnerFsRm:
 
         mock_client.files.delete.assert_called_once_with("/Volumes/v/file.csv")
 
+    def test_rm_recursive_deletes_contents_and_directory(self, inner_fs, mock_client):
+        # Simulate a directory containing one file
+        dir_entry = MagicMock(
+            path="/Volumes/v/mydir/file.csv", is_directory=False, file_size=10, last_modified=None
+        )
+        mock_client.files.get_metadata.side_effect = Exception("not found")
+
+        # get_directory_metadata succeeds only for the directory, not the file
+        def dir_meta_side_effect(path):
+            if path == "/Volumes/v/mydir":
+                return MagicMock()
+            raise Exception("not found")
+
+        mock_client.files.get_directory_metadata.side_effect = dir_meta_side_effect
+        mock_client.files.list_directory_contents.return_value = [dir_entry]
+
+        inner_fs.rm("/Volumes/v/mydir", recursive=True)
+
+        mock_client.files.delete.assert_called_once_with("/Volumes/v/mydir/file.csv")
+        mock_client.files.delete_directory.assert_called_once_with("/Volumes/v/mydir")
+
 
 # ---------------------------------------------------------------------------
 # _DatabricksVolumesFS._open
