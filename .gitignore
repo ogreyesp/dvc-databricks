@@ -209,3 +209,5 @@ __marimo__/
 # DVC local cache and temp files (never committed)
 .dvc/cache
 .dvc/tmp
+
+uv.lock
