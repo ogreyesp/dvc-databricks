@@ -29,15 +29,14 @@ jobs:
 
       - name: Install doc dependencies
         run: |
-          uv venv .venv
-          uv pip install --python .venv \
+          uv pip install \
             sphinx sphinx-autodoc-typehints furo \
             dvc-databricks
 
       - name: Generate API docs and build HTML
         run: |
-          uv run --python .venv sphinx-apidoc -f -o docs/api src/dvc_databricks
-          uv run --python .venv sphinx-build -b html docs docs/_build/html
+          uv run sphinx-apidoc -f -o docs/api src/dvc_databricks
+          uv run sphinx-build -b html docs docs/_build/html
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
