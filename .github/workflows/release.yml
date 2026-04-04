@@ -31,9 +31,13 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          uvx --from python-semantic-release semantic-release version --print > /tmp/new_version || true
-          NEW_VERSION=$(cat /tmp/new_version)
-          echo "released=$( [ -n "$NEW_VERSION" ] && echo true || echo false )" >> $GITHUB_OUTPUT
+          NEXT=$(uvx --from python-semantic-release semantic-release version --print 2>/dev/null || true)
+          if [ -n "$NEXT" ]; then
+            uvx --from python-semantic-release semantic-release version
+            echo "released=true" >> $GITHUB_OUTPUT
+          else
+            echo "released=false" >> $GITHUB_OUTPUT
+          fi
 
       - name: Build package
         if: steps.semrel.outputs.released == 'true'
