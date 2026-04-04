@@ -2,6 +2,24 @@
 
 <!-- version list -->
 
+## v1.2.4 (2026-04-04)
+
+### Bug Fixes
+
+- Exclude dotfiles like .DS_Store by matching full name when suffix is empty
+  ([`4769e0f`](https://github.com/ogreyesp/dvc-databricks/commit/4769e0f1a708ff62c71915f887fbd4892bc447f9))
+
+### Continuous Integration
+
+- Detect new release by comparing git tags instead of using --print
+  ([`b56e8c5`](https://github.com/ogreyesp/dvc-databricks/commit/b56e8c5d759e33f4572ec5da1cca2ceac7391a32))
+
+### Documentation
+
+- Fix Python version requirement (3.11) and README grammar
+  ([`40f588b`](https://github.com/ogreyesp/dvc-databricks/commit/40f588b4a8c80df91575350347e266fdef10399a))
+
+
 ## v1.2.3 (2026-04-04)
 
 ### Bug Fixes
