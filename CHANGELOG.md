@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.2.1 (2026-04-04)
+
+### Bug Fixes
+
+- Use venv instead of --system for docs dependencies
+  ([`6f040b7`](https://github.com/ogreyesp/dvc-databricks/commit/6f040b7e1d89d10b8e514a2961175e683c189687))
+
+
 ## v1.2.0 (2026-04-04)
 
 ### Features
