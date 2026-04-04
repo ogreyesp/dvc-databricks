@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.1.1 (2026-04-04)
+
+### Bug Fixes
+
+- Display full package version in docs
+  ([`f7feed4`](https://github.com/ogreyesp/dvc-databricks/commit/f7feed4df24faae62d0598e1e3e7d94acadeb339))
+
+
 ## v1.1.0 (2026-04-04)
 
 ### Bug Fixes
