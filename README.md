@@ -111,6 +111,63 @@ dvc pull
 
 ---
 
+## CLI — `dvc-databricks add`
+
+The `dvc-databricks add` command recursively finds files under a directory and tracks each one with DVC, creating **one `.dvc` pointer file per file**. The full folder structure is preserved in git, which allows granular pulls by file or subfolder — unlike DVC's built-in `dvc add <dir>`, which creates a single `.dvc` file for the whole directory.
+
+### Syntax
+
+```
+dvc-databricks add <path> [--include EXT ...] [--exclude EXT ...]
+```
+
+### Arguments
+
+| Argument | Description |
+|----------|-------------|
+| `path` | Root directory to scan recursively (required). |
+| `--include EXT ...` | **Whitelist** — only track files with these extensions. Accepts multiple values. |
+| `--exclude EXT ...` | **Blacklist** — always skip files with these extensions. Accepts multiple values. Takes precedence over `--include`. |
+
+Extensions can be written with or without a leading dot (`.csv` and `csv` are equivalent) and are matched case-insensitively.
+
+### Filter logic
+
+- `--include` is a **whitelist**: only files whose extension is in the list are tracked.
+- `--exclude` is a **blacklist**: files whose extension is in the list are always skipped.
+- When both are provided, `--exclude` takes precedence over `--include`.
+- When neither is provided, **all files** are tracked.
+
+### Examples
+
+```bash
+# Track only CSV and JSON files
+dvc-databricks add /path/to/dataset --include .csv .json
+
+# Track all files except macOS artifacts and temp files
+dvc-databricks add /path/to/dataset --exclude .DS_Store .tmp .log
+
+# Only CSVs, but skip .DS_Store even if --include .csv is set
+dvc-databricks add /path/to/dataset --include .csv --exclude .DS_Store
+
+# Track all files with no filters
+dvc-databricks add /path/to/dataset
+```
+
+### After running
+
+```bash
+git add .
+git commit -m "track dataset file by file"
+dvc push
+```
+
+- One `.dvc` pointer file is created next to each tracked data file.
+- Each directory containing tracked files gets a `.gitignore` that excludes the raw data files from git.
+- `dvc push` uploads all tracked files to the configured Databricks Volume.
+
+---
+
 ## How it works
 
 ```
@@ -122,7 +179,7 @@ data/dataset.csv.dvc  ──────►  /Volumes/catalog/schema/vol/
                                     └── 9f/123abc...     ← actual data
 ```
 
-**`dvc add`** hashes the file and stores it in the local DVC cache (`.dvc/cache`).
+**`dvc|dvc-databricks add`** hashes the file and stores it in the local DVC cache (`.dvc/cache`).
 A `.dvc` pointer file containing the MD5 hash is created next to your data file.
 
 **`dvc push`** uploads from the local cache to the Volume using the Databricks
@@ -138,7 +195,7 @@ Only `.dvc` pointer files are ever committed to git — the data stays on the Vo
 
 ## Architecture
 
-The plugin follows the same pattern as official DVC plugins (`dvc-gdrive`, `dvc-s3`):
+The plugin follows the same pattern as official DVC plugins:
 
 | Class | Base | Role |
 |-------|------|------|

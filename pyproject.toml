@@ -27,6 +27,20 @@ dependencies = [
     "fsspec",
 ]
 
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov",
+    "pylint",
+    "sphinx>=7.0",
+    "sphinx-autodoc-typehints",
+    "furo",
+    "pip>=26.0.1",
+]
+
+[project.scripts]
+dvc-databricks = "dvc_databricks.cli:main"
+
 [project.urls]
 Homepage = "https://github.com/ogreyesp/dvc-databricks"
 Repository = "https://github.com/ogreyesp/dvc-databricks"
@@ -46,11 +60,41 @@ packages = ["src/dvc_databricks"]
 [tool.hatch.build.targets.wheel.force-include]
 "src/dvc_databricks_startup.pth" = "dvc_databricks_startup.pth"
 
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.coverage.run]
+source = ["dvc_databricks"]
+omit = ["tests/*"]
+
+[tool.coverage.report]
+show_missing = true
+fail_under = 80
+
+[tool.pylint.main]
+source-roots = ["src"]
+
+[tool.pylint.format]
+max-line-length = 100
+
+[tool.pylint."messages control"]
+disable = [
+    "missing-module-docstring", # already enforced via module docstrings in code
+    "too-few-public-methods",   # data classes and small helpers are fine
+    "abstract-method",          # fsspec/dvc_objects have many optional abstract methods
+    "broad-exception-caught",   # Databricks SDK raises generic exceptions; we catch-and-rethrow
+    "raise-missing-from",       # intentional — we translate SDK errors to stdlib FileNotFoundError
+    "arguments-differ",         # fsspec overrides intentionally drop optional **kwargs
+    "unused-argument",          # **kwargs kept for fsspec signature compatibility
+    "import-outside-toplevel",  # dvc.repo is imported inside cmd_add to defer heavy import
+]
+
 [tool.semantic_release]
 version_toml = ["pyproject.toml:project.version"]
 branch = "main"
 changelog_file = "CHANGELOG.md"
-build_command = "pip install hatchling && python -m hatchling build"
+build_command = "uv build"
 dist_path = "dist/"
 upload_to_pypi = false
 upload_to_release = false

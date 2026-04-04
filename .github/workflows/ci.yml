@@ -6,30 +6,45 @@ on:
       - main
 
 jobs:
-  lint-and-build:
-    name: Lint & Build
+  test:
+    name: Test & Lint
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: astral-sh/setup-uv@v5
         with:
           python-version: "3.12"
 
-      - name: Install build tools
-        run: pip install hatchling
+      - name: Install dependencies
+        run: uv sync --extra dev
 
-      - name: Check package builds cleanly
-        run: python -m hatchling build
+      - name: Run tests with coverage
+        run: uv run pytest tests/ --cov=dvc_databricks --cov-report=term-missing -v
+
+      - name: Lint
+        run: uv run pylint src/dvc_databricks/
+
+  build:
+    name: Build & Verify
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.12"
+
+      - name: Build wheel
+        run: uv build
 
       - name: Verify package installs and registers dbvol://
         run: |
-          pip install dist/*.whl
+          uv pip install dist/*.whl --system
           python -c "
           from dvc_objects.fs import known_implementations
           assert 'dbvol' in known_implementations, 'dbvol not registered!'
-          print('dbvol registered successfully:', known_implementations['dbvol'])
+          print('dbvol registered:', known_implementations['dbvol'])
           "

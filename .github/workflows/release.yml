@@ -15,19 +15,17 @@ jobs:
     concurrency: release
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: astral-sh/setup-uv@v5
         with:
           python-version: "3.12"
 
-      - name: Install tools
-        run: pip install python-semantic-release hatchling twine
+      - name: Install release tools
+        run: uv tool install python-semantic-release
 
       - name: Run semantic release (version bump + GitHub release)
         env:
@@ -35,13 +33,13 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          semantic-release version
+          uvx semantic-release version
 
       - name: Build package
-        run: python -m hatchling build
+        run: uv build
 
       - name: Publish to PyPI
+        run: uvx twine upload dist/*
         env:
           TWINE_USERNAME: __token__
           TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
-        run: twine upload dist/*
