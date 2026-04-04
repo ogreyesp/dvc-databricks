@@ -42,7 +42,7 @@ dev = [
 dvc-databricks = "dvc_databricks.cli:main"
 
 [project.urls]
-Homepage = "https://github.com/ogreyesp/dvc-databricks"
+Homepage = "https://ogreyesp.github.io/dvc-databricks"
 Repository = "https://github.com/ogreyesp/dvc-databricks"
 Issues = "https://github.com/ogreyesp/dvc-databricks/issues"
 
