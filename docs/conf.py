@@ -20,7 +20,7 @@ try:
     from importlib.metadata import version as _pkg_version
 
     release = _pkg_version("dvc-databricks")
-    version = ".".join(release.split(".")[:2])
+    version = release
 except Exception:
     version = release = "unknown"
 
