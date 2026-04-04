@@ -4,7 +4,7 @@ Installation
 Requirements
 ------------
 
-- Python >= 3.10
+- Python >= 3.11
 - `DVC <https://dvc.org/doc/install>`_ >= 3.0
 - `Databricks CLI <https://docs.databricks.com/en/dev-tools/cli/install.html>`_ configured with a profile in ``~/.databrickscfg``
 - Access to a Databricks Unity Catalog Volume

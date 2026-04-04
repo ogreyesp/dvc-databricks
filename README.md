@@ -19,7 +19,7 @@ Databricks Unity Catalog Volumes cannot be accessed like a plain S3 bucket — a
 
 ## Requirements
 
-- Python >= 3.10
+- Python >= 3.11
 - [DVC](https://dvc.org/doc/install) >= 3.0
 - [Databricks CLI](https://docs.databricks.com/en/dev-tools/cli/install.html) configured with a profile in `~/.databrickscfg`
 - Access to a Databricks Unity Catalog Volume
@@ -82,7 +82,7 @@ dvc add data/dataset.csv
 ```
 
 This creates `data/dataset.csv.dvc` — a small pointer file that goes into git.
-The actual data file must listed in `.gitignore`.
+The actual data file must be listed in `.gitignore`.
 
 ### Push data to the Volume
 
