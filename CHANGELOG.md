@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.2.2 (2026-04-04)
+
+### Bug Fixes
+
+- Use existing venv created by setup-uv for docs install
+  ([`452eab0`](https://github.com/ogreyesp/dvc-databricks/commit/452eab0addd952305688df8f893caf0892e2c930))
+
+
 ## v1.2.1 (2026-04-04)
 
 ### Bug Fixes
