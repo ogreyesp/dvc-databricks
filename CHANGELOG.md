@@ -2,6 +2,19 @@
 
 <!-- version list -->
 
+## v1.1.0 (2026-04-04)
+
+### Bug Fixes
+
+- Correct uvx invocation for python-semantic-release
+  ([`c788ba6`](https://github.com/ogreyesp/dvc-databricks/commit/c788ba6f1e9e0aeaefd7cb4fb6f26c0b7d5574bd))
+
+### Features
+
+- Add tests, sphinx docs, pylint, Makefile, uv support
+  ([`7a11f0d`](https://github.com/ogreyesp/dvc-databricks/commit/7a11f0d67e049d108316dad293cebeac07ee75a5))
+
+
 ## v1.0.4 (2026-04-03)
 
 ### Bug Fixes
