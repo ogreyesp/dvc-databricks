@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.2.0 (2026-04-04)
+
+### Features
+
+- Require Python >=3.11, mark stable, add 3.14 classifier, test 3.11-3.13
+  ([`b9d74b8`](https://github.com/ogreyesp/dvc-databricks/commit/b9d74b8940053cfc60bbbf4129c216a0685dbeb4))
+
+
 ## v1.1.3 (2026-04-04)
 
 ### Bug Fixes
