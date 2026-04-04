@@ -2,6 +2,25 @@
 
 <!-- version list -->
 
+## v1.2.3 (2026-04-04)
+
+### Bug Fixes
+
+- Correctly run semantic-release version after print check
+  ([`74dfc0b`](https://github.com/ogreyesp/dvc-databricks/commit/74dfc0bcee5cb1b8407bcc6e36137bcce5e29a3f))
+
+- Delete directory after recursive rm to avoid leaving empty dirs on Volume
+  ([`5e35100`](https://github.com/ogreyesp/dvc-databricks/commit/5e35100358707bbb2e30930e3eceffe37ad7da73))
+
+### Continuous Integration
+
+- Fix docs deployment using workflow_run instead of tag push
+  ([`4811bfe`](https://github.com/ogreyesp/dvc-databricks/commit/4811bfe7ca3d99aca5878a565c803dcec9f87e0c))
+
+- Fix docs skip and spurious PyPI upload on no-op releases
+  ([`7b62f74`](https://github.com/ogreyesp/dvc-databricks/commit/7b62f74341e7cca656bad2be6dedad247c8d8565))
+
+
 ## v1.2.2 (2026-04-04)
 
 ### Bug Fixes
