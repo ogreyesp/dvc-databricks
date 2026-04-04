@@ -17,10 +17,12 @@ author = "Óscar Reyes"
 
 # Read the version from pyproject.toml to avoid duplicating it
 try:
-    from importlib.metadata import version as _pkg_version
+    import tomllib
+    from pathlib import Path
 
-    release = _pkg_version("dvc-databricks")
-    version = release
+    _pyproject = Path(__file__).parent.parent / "pyproject.toml"
+    with _pyproject.open("rb") as _f:
+        version = release = tomllib.load(_f)["project"]["version"]
 except Exception:
     version = release = "unknown"
 
