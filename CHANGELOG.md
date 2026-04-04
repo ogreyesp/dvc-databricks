@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.1.2 (2026-04-04)
+
+### Bug Fixes
+
+- Build docs after release tag, not on push to main
+  ([`6c54f3f`](https://github.com/ogreyesp/dvc-databricks/commit/6c54f3f4aab5b75c13c3c8377e7c86876e5f141d))
+
+
 ## v1.1.1 (2026-04-04)
 
 ### Bug Fixes
