@@ -2,6 +2,19 @@
 
 <!-- version list -->
 
+## v1.2.5 (2026-04-04)
+
+### Bug Fixes
+
+- Skip git-ignored files during add instead of crashing
+  ([`09f8b1e`](https://github.com/ogreyesp/dvc-databricks/commit/09f8b1eae55360c76765633e340a2125b7a1cf12))
+
+### Chores
+
+- Add uv.lock to .gitignore
+  ([`5dc71e0`](https://github.com/ogreyesp/dvc-databricks/commit/5dc71e03b02aba4620338c63b0e205def254e625))
+
+
 ## v1.2.4 (2026-04-04)
 
 ### Bug Fixes
