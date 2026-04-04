@@ -141,6 +141,22 @@ class TestCollectFiles:
 
         assert len(result) == 1
 
+    def test_dotfile_excluded_by_name(self, tmp_path):
+        (tmp_path / ".DS_Store").write_text("")
+        (tmp_path / "data.csv").write_text("data")
+
+        result = _collect_files(tmp_path, set(), {".ds_store"})
+
+        assert [f.name for f in result] == ["data.csv"]
+
+    def test_dotfile_not_collected_when_include_set(self, tmp_path):
+        (tmp_path / ".DS_Store").write_text("")
+        (tmp_path / "data.csv").write_text("data")
+
+        result = _collect_files(tmp_path, {".csv"}, set())
+
+        assert [f.name for f in result] == ["data.csv"]
+
 
 # ---------------------------------------------------------------------------
 # cmd_add

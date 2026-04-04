@@ -75,7 +75,7 @@ def _collect_files(root: Path, include: set[str], exclude: set[str]) -> list[Pat
     for f in root.rglob("*"):
         if not f.is_file():
             continue
-        ext = f.suffix.lower()
+        ext = f.suffix.lower() if f.suffix else f.name.lower()
         if include and ext not in include:
             continue
         if ext in exclude:
