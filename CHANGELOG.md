@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.1.3 (2026-04-04)
+
+### Bug Fixes
+
+- Read version from pyproject.toml directly in docs
+  ([`836a96b`](https://github.com/ogreyesp/dvc-databricks/commit/836a96bc79b0d134f5711eb798737f446cb6a538))
+
+
 ## v1.1.2 (2026-04-04)
 
 ### Bug Fixes
