@@ -2,6 +2,17 @@
 
 <!-- version list -->
 
+## v1.3.0 (2026-04-06)
+
+### Features
+
+- Remove CLI — standard DVC commands handle all use cases natively
+  ([`df86c40`](https://github.com/ogreyesp/dvc-databricks/commit/df86c408bd62c0467813e8392b20c66c51166c53))
+
+- Remove CLI — standard DVC commands handle all use cases natively
+  ([`4be1c6a`](https://github.com/ogreyesp/dvc-databricks/commit/4be1c6ae3d652387d8e30ab79cc64559e7ce6d4f))
+
+
 ## v1.2.5 (2026-04-04)
 
 ### Bug Fixes
