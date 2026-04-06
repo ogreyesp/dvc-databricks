@@ -38,9 +38,6 @@ dev = [
     "pip>=26.0.1",
 ]
 
-[project.scripts]
-dvc-databricks = "dvc_databricks.cli:main"
-
 [project.urls]
 Homepage = "https://ogreyesp.github.io/dvc-databricks"
 Repository = "https://github.com/ogreyesp/dvc-databricks"

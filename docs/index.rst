@@ -19,7 +19,6 @@ commands — no custom code required.
 
    installation
    usage
-   cli
    api/modules
 
 Indices and tables
